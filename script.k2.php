@@ -235,11 +235,18 @@ class Com_K2InstallerScript
 			}
 		}
 
-		// Set the default image sizes for new installs
+		// Set the default config parameters for new installs
 		if ($type == 'install')
 		{
 			$params = JComponentHelper::getParams('com_k2');
 
+			// load the defaults from the config file on new installs
+			$xmlForm = simplexml_load_file($src.'/administrator/components/com_k2/config.xml');
+			foreach ($xmlForm->xpath('fieldset') as $fieldset) {
+				$this->addDefaults($params, $fieldset);
+			}
+						
+			// set the default image sizes
 			$imageSizes = array();
 
 			$size = new stdClass;
@@ -295,6 +302,20 @@ class Com_K2InstallerScript
 		$parent->getParent()->set('redirect_url', 'index.php?option=com_k2&view=installation');
 	}
 
+	private function addDefaults (&$params, $xml){
+		// set default value if we've one
+		$name = (string) $xml['name'];
+		$default = (string) $xml['default'];
+		
+		if (!empty($name) && !empty($default)) {
+			$params->set($name, $default);
+		}
+		// recurse further
+		foreach ($xml->children() as $child) {
+			$this->addDefaults($params, $child);
+		}
+	}
+	
 	public function uninstall($parent)
 	{
 		// Get database
