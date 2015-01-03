@@ -831,6 +831,24 @@ class K2ModelItems extends K2Model
 		{
 			$data['extra_fields'] = json_encode($data['extra_fields']);
 		}
+		
+		
+		
+		// K2 Before Save plugin event . We trigger it here beacuse it is applied only to items ( like in v2 )
+		$dispatcher = JDispatcher::getInstance();
+		JPluginHelper::importPlugin('k2');
+		if (!$this->getState('patch'))
+		{
+			$isNew = $this->getState('isNew');
+			$dispatcher->trigger('onBeforeK2Save', array(
+				&$data,
+				$isNew
+			));
+		}
+		
+		
+		
+		
 
 		return true;
 
