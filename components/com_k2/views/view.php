@@ -473,7 +473,8 @@ class K2View extends JViewLegacy
 		}
 
 		// @TODO Apply menu settings. Since they will be common all tasks we need to wait
-		//$model->setState('sorting', 'ordering');
+                $sorting = $this->params->get('singleCatOrdering');                                           		
+                $model->setState('sorting', $sorting);
 
 		// Get items
 		$model->setState('limit', $this->limit);
@@ -522,7 +523,6 @@ class K2View extends JViewLegacy
 		// Check access
 		$this->author->checkSiteAccess();
 
-		// @TODO Apply menu settings. Since they will be common all tasks we need to wait
 
 		// Get items
 		$model = K2Model::getInstance('Items');
@@ -530,6 +530,11 @@ class K2View extends JViewLegacy
 		$model->setState('author', $id);
 		$model->setState('limit', $this->limit);
 		$model->setState('limitstart', $this->offset);
+
+                // @TODO Apply menu settings. Since they will be common all tasks we need to wait
+                $sorting = $this->params->get('userOrdering');
+                $model->setState('sorting', $sorting);
+                
 		$this->items = $model->getRows();
 
 		// Count items
