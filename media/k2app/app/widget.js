@@ -84,7 +84,7 @@ define(['backbone', 'marionette', 'dispatcher', 'session'], function(Backbone, M
 				require(['pickadateTime', 'css!pickadateTheme', 'css!pickadateTimeStyle'], function(Picker) {
 					element.pickatime({
 						format : element.data('format') || 'HH:i',
-						interval : 5
+						interval : 30
 					});
 				});
 			});
