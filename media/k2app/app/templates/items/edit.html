@@ -390,26 +390,6 @@
 							<label class="left" for="publishDownTime"><%= l('K2_FINISH_PUBLISHING_TIME') %></label>
 							<input class="right" data-widget="timepicker" id="publishDownTime" type="text" name="publishDownTime" value="<%- row.publishDownTime %>" />
 						</div>
-							
-						<div class="jw--setting--single">
-							<label class="left" for="startDate"><%= l('K2_START_DATE') %></label>
-							<input class="right" data-widget="datepicker" id="startDate" type="text" name="startDate" value="<%- row.startDate %>" />
-						</div>
-							
-						<div class="jw--setting--single">
-							<label class="left" for="startTime"><%= l('K2_START_TIME') %></label>
-							<input class="right" data-widget="timepicker" id="startTime" type="text" name="startTime" value="<%- row.startTime %>" />
-						</div>
-						
-						<div class="jw--setting--single">
-							<label class="left" for="endDate"><%= l('K2_END_DATE') %></label>
-							<input class="right" data-widget="datepicker" id="endDate" type="text" name="endDate" value="<%- row.endDate %>" />
-						</div>
-							
-						<div class="jw--setting--single">
-							<label class="left" for="endTime"><%= l('K2_END_TIME') %></label>
-							<input class="right" data-widget="timepicker" id="endTime" type="text" name="endTime" value="<%- row.endTime %>" />
-						</div>
 						
 						<!-- JForm fields TODO: Move them somewhere else in the form -->
 						<% _.each(form.jform, function(field) { %>
