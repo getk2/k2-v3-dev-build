@@ -11,10 +11,10 @@
 			<div class="ov-hidden jw--element--single">
 				<div class="jw--element--single jw--file--btn">
 				    <input type="file" data-widget="uploader" data-url="index.php?option=com_k2&task=attachments.upload&id=<%- id %>&itemId=<%- itemId %>&format=json" data-callback="attachments:upload:<%- cid %>" name="file" />
-					<input type="hidden" name="attachments[<%- cid %>][file]" value="<%- file %>" />
 					<span class="jw--btn jw--file-fakebtn">
 						<i class="fa fa-upload"></i> <span><%= l('K2_UPLOAD') %></span>
 					</span>
+					<input class="jw--small--input" readonly="readonly" type="text" name="attachments[<%- cid %>][file]" value="<%- file %>" />
 				</div>
 			
 				<div class="jw--element--single">    
