@@ -520,11 +520,12 @@ class K2View extends JViewLegacy
 
 		// Get input
 		$id = $application->input->get('id', 0, 'int');
-
+		$params = JComponentHelper::getParams('com_k2');
+		
 		// Determine offset and limit based on document type
 		if ($this->type == 'html' || $this->type == 'raw')
 		{
-			$this->limit = $application->input->get('limit', 10, 'int');
+			$this->limit = $params->get('userItemCount', 10, 'int');
 		}
 		else
 		{
@@ -562,11 +563,12 @@ class K2View extends JViewLegacy
 
 		// Get input
 		$id = $application->input->get('id', 0, 'int');
-
+		$params = JComponentHelper::getParams('com_k2');
+		
 		// Determine offset and limit based on document type
 		if ($this->type == 'html' || $this->type == 'raw')
 		{
-			$this->limit = $application->input->get('limit', 10, 'int');
+			$this->limit = $params->get('tagItemCount', 10, 'int');
 		}
 		else
 		{
@@ -619,11 +621,13 @@ class K2View extends JViewLegacy
 		}
 		$this->date = JFactory::getDate($dateValue);
 		$this->date->title = JText::_('K2_ITEMS_FILTERED_BY_DATE').' '.$this->date->format($dateFormat);
-
+		
+		$params = JComponentHelper::getParams('com_k2');
+		
 		// Determine offset and limit based on document type
 		if ($this->type == 'html' || $this->type == 'raw')
 		{
-			$this->limit = $application->input->get('limit', 10, 'int');
+			$this->limit = $params->get('dateItemCount', 10, 'int');
 		}
 		else
 		{
@@ -668,10 +672,12 @@ class K2View extends JViewLegacy
 			$categories = array((int)$categories);
 		}
 
+		$params = JComponentHelper::getParams('com_k2');
+		
 		// Determine offset and limit based on document type
 		if ($this->type == 'html' || $this->type == 'raw')
 		{
-			$this->limit = $application->input->get('limit', 10, 'int');
+			$this->limit = $application->input->get('searchItemCount', 10, 'int');
 		}
 		else
 		{
