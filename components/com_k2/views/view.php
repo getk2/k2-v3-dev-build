@@ -472,9 +472,24 @@ class K2View extends JViewLegacy
 			$this->limit = $this->params->get('feedLimit', 10, 'int');
 		}
 
-		// @TODO Apply menu settings. Since they will be common all tasks we need to wait
-		//$model->setState('sorting', 'ordering');
-
+		// Select the handling of featured items
+		// 0 -> don't display featured items
+		// 1 -> display featured and non-featured items
+		// 2 -> display only fetaured items
+		$catFeaturedItems = $this->params->get('catFeaturedItems', 1, 'int');
+		if($catFeaturedItems == 0) {
+			$model->setState('featured', 0);
+		}elseif ($catFeaturedItems == 2) {
+			$model->setState('featured', 1);
+		}
+		
+		// Set ordering state
+		if($id) {
+			$model->setState('sorting', $this->params->get('singleCatOrdering', 'id'));
+		}else{
+			$model->setState('sorting', $this->params->get('catOrdering', 'id'));
+		}
+		
 		// Get items
 		$model->setState('limit', $this->limit);
 		$model->setState('limitstart', $this->offset);
