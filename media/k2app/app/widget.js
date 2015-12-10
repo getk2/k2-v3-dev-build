@@ -72,7 +72,9 @@ define(['backbone', 'marionette', 'dispatcher', 'session'], function(Backbone, M
 			require(['pickadate'], function() {
 				require(['pickadateDate', 'css!pickadateTheme', 'css!pickadateDateStyle'], function(Picker) {
 					element.pickadate({
-						format : element.data('format') || 'yyyy-mm-dd'
+						format : element.data('format') || 'yyyy-mm-dd',
+						selectMonths: true,
+						selectYears: true
 					});
 				});
 			});
