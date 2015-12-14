@@ -113,6 +113,12 @@ class Com_K2InstallerScript
 					{
 						$parent->getParent()->abort('Could not create folder '.JPATH_SITE.'/components/com_k2. Check permissions.');
 						return false;
+					}else{
+						// Create dummy folders so that Joomla's update routine can delete this without issueing warnings.
+						JFolder::create(JPATH_SITE.'/components/com_k2/controllers');
+						JFolder::create(JPATH_SITE.'/components/com_k2/js');
+						JFolder::create(JPATH_SITE.'/components/com_k2/models');
+						JFolder::create(JPATH_SITE.'/components/com_k2/sef_ext');
 					}
 					if (!JFolder::copy(JPATH_SITE.'/components/com_k2_v2/templates', JPATH_SITE.'/components/com_k2/templates'))
 					{
@@ -137,6 +143,18 @@ class Com_K2InstallerScript
 						$parent->getParent()->abort('Could not move folder '.JPATH_ADMINISTRATOR.'/components/com_k2. Check permissions.');
 						return false;
 					}
+					
+					if (!JFolder::create(JPATH_ADMINISTRATOR.'/components/com_k2'))
+					{
+						$parent->getParent()->abort('Could not create folder '.JPATH_ADMINISTRATOR.'/components/com_k2. Check permissions.');
+						return false;
+					}else{
+						// Create dummy folders so that Joomla's update routine can delete this without issueing warnings.
+						JFolder::create(JPATH_ADMINISTRATOR.'/components/com_k2/elements');
+						JFolder::create(JPATH_ADMINISTRATOR.'/components/com_k2/jupgrade');
+						JFolder::create(JPATH_ADMINISTRATOR.'/components/com_k2/lib');
+					}
+
 				}
 
 				// Set a flag that this is an upgrade
