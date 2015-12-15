@@ -250,6 +250,8 @@ define(['underscore', 'backbone', 'marionette', 'dispatcher', 'session'], functi
 				// If an id is provided use it
 				if (id) {
 					this.model.set('id', id);
+				} else {
+					var catid = jQuery('select#category').val();
 				}
 
 				// Fetch the data from server
@@ -268,6 +270,10 @@ define(['underscore', 'backbone', 'marionette', 'dispatcher', 'session'], functi
 
 						// Render the view
 						K2Dispatcher.trigger('app:region:show', this.view, 'content', this.resource + '-form');
+
+						if (catid) {
+							jQuery('select#catid').val(catid);
+						}
 
 						// Determine the new URL
 						var suffix = (id) ? '/edit/' + id : '/add';
