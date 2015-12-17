@@ -725,6 +725,11 @@
 			<option value="0">K2_NO</option>
 			<option value="1">K2_YES</option>
 		</field>
+		<field menu="hide" name="commentsFormPosition" type="list" default="below" label="K2_FORM_POSITION" description="">
+			<option value="above">K2_POSITION_ABOVE</option>
+			<option value="below">K2_POSITION_BELOW</option>
+		</field>
+		
 		<field menu="hide" name="commentsFormNotesText" filter="raw" type="textarea" default="" label="K2_COMMENT_FORM_NOTES_HTML_ALLOWED" description="K2_COMMENT_FORM_NOTES_HTML_ALLOWED_DESC" rows="8" cols="40" />
 	</fieldset>
 	
