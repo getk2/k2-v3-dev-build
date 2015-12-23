@@ -270,7 +270,15 @@ define(['underscore', 'backbone', 'marionette', 'dispatcher', 'session'], functi
 
 						// Render the view
 						K2Dispatcher.trigger('app:region:show', this.view, 'content', this.resource + '-form');
-
+						
+						// In case the #content contains some embedded scripts, trigger these. These may be editors.
+						var editor = jQuery('#content script').toArray();
+						var index, len;
+						for (index = 0, len = editor.length; index < len; index++){
+							eval (editor[index].text);
+						}
+						
+						// We may have a catid set in case a new article is created. Copy it to the category selector in the article editor
 						if (catid) {
 							jQuery('select#catid').val(catid);
 						}
