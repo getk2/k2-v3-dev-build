@@ -19,6 +19,9 @@ jimport('joomla.html.editor');
 
 class K2Editor extends JEditor
 {
+	private $js;
+	private $start;
+		
 	public static function getInstance($editor = 'none')
 	{
 		$signature = serialize($editor);
@@ -31,63 +34,33 @@ class K2Editor extends JEditor
 		return self::$instances[$signature];
 	}
 
-	public function init()
+	public function __construct($editor = 'none')
 	{
-		$plugin = JPluginHelper::getPlugin('editors', $this->_name);
-		require_once JPATH_SITE.'/plugins/editors/'.$plugin->name.'/'.$plugin->name.'.php';
-		$className = 'plgEditor'.JString::ucfirst($plugin->name);
-		$editor = new $className($this, (array)$plugin);
-		$onInit = $editor->onInit();
-
-		if (empty($onInit))
-		{
-			return '';
-		}
-
-		// We only need to fetch the script declarations since other scripts are already loaded
-		$doc = new DOMDocument();
-		$doc->loadHTML($onInit);
-		$scripts = $doc->getElementsByTagName('script');
-		$js = '';
-		foreach ($scripts as $key => $script)
-		{
-			$js .= $scripts->item($key)->nodeValue;
-		}
-		return $js;
+		parent::__construct($editor);
+		$this->init();
 	}
-	public function initialise()
-	{
-		// Check if editor is already loaded
-		if (is_null(($this->_editor)))
-		{
-			return;
-		}
-
-		$args['event'] = 'onInit';
-
-		$return = '';
-		$results[] = $this->_editor->update($args);
-
-		foreach ($results as $result)
-		{
-			if (trim($result))
-			{
-				// @todo remove code: $return .= $result;
-				$return = $result;
+	
+	public function init() {
+		if (is_null ( $this->start )) {
+			$this->_loadEditor ();
+			
+			$this->start = 'started';
+			
+			$args ['event'] = 'onInit';
+			$results [] = $this->_editor->update ( $args );
+			
+			$doc = new DOMDocument ();
+			$doc->loadHTML ( implode ( $results ) );
+			$scripts = $doc->getElementsByTagName ( 'script' );
+			foreach ( $scripts as $key => $script ) {
+				$this->js .= $scripts->item ( $key )->nodeValue;
 			}
 		}
-
-		$document = JFactory::getDocument();
-		if($document->getType() == 'html')
-		{
-			$document->addCustomTag($return);
-		}
-		
+		return $this->js;
 	}
-	
-	
+
 	public function save($editor)
 	{
 		return parent::save($editor)." jQuery('#' + ".$editor.").val(K2Editor.getContent('".$editor."'));";
-	}
+	}	
 }
