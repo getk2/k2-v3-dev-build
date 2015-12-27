@@ -272,7 +272,7 @@ define(['underscore', 'backbone', 'marionette', 'dispatcher', 'session'], functi
 						K2Dispatcher.trigger('app:region:show', this.view, 'content', this.resource + '-form');
 						
 						// In case the #content contains some embedded scripts, trigger these. These may be editors.
-						var editor = jQuery('#content script').toArray();
+						var editor = jQuery('#content .jw--pane__content > .jw--editor--tab > script').toArray();
 						var index, len;
 						for (index = 0, len = editor.length; index < len; index++){
 							eval (editor[index].text);

@@ -17,9 +17,6 @@ $editor = K2Editor::getInstance($config->get('editor'));
 
 <?php if($field->get('editor')) : ?>
 	<?php echo $editor->display($field->get('prefix').'[value]', $field->get('value'), '100%', '300', (int)$field->get('rows', '10'), (int)$field->get('columns', '40')); ?>
-	<script type="text/javascript">
-	K2Editor.init();
-	</script>
 <?php else : ?>
 	<textarea rows="<?php echo (int)$field->get('rows', '10'); ?>" cols="<?php echo (int)$field->get('columns', '40'); ?>" name="<?php echo $field->get('prefix'); ?>[value]"><?php echo $field->get('value'); ?></textarea>
 <?php endif; ?>
