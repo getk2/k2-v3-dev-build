@@ -830,7 +830,20 @@ class K2Items extends K2Resource
 	{
 		return $this->author->description;
 	}
-
+	
+	// Clone an array, including referenced objects
+	private function array_clone($array) {
+		return array_map(function($element) {
+			return ((is_array($element))
+					? call_user_func(__FUNCTION__, $element)
+					: ((is_object($element))
+							? clone $element
+							: $element
+							)
+					);
+		}, $array);
+	}
+	
 	public function getextra_fields()
 	{
 		$extraFields = array();
@@ -842,7 +855,7 @@ class K2Items extends K2Resource
 				$extraFields[] = $extraField;
 			}
 		}
-		return $extraFields;
+		return $this->array_clone($extraFields);
 	}
 
 	public function getNumOfVotes()

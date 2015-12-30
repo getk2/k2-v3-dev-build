@@ -410,7 +410,7 @@ class PlgSystemK2 extends JPlugin
 		}
 
 	}
-
+	
 	// Legacy
 	public function onBeforeDisplayView($context, $view)
 	{
@@ -528,7 +528,13 @@ class PlgSystemK2 extends JPlugin
 						$item->params->merge($categoryParams);
 						$item->params->merge($itemParams);
 					}
-
+					
+					if (is_string($item->extra_fields))
+					{
+						$item->extraFields = $item->getExtraFields();
+						$item->extra_fields = $item->getextra_fields();
+					}
+						
 					if (!$item->canEdit)
 					{
 						unset($item->editLink);
