@@ -26,7 +26,8 @@ $editor = K2Editor::getInstance($config->get('editor'));
 	jQuery(document).bind('K2ExtraFieldsValidate', function(event, K2ExtraFields) {
 		
 		<?php if($field->get('editor')) : ?>
-		
+
+		K2Editor.save('<?php echo $field->get('prefix'); ?>[value]');
 		if(K2Editor.getContent('<?php echo $field->get('prefix'); ?>[value]') == '') {
 			K2ExtraFields.addValidationError(<?php echo $this->id; ?>);
 		}
@@ -40,5 +41,16 @@ $editor = K2Editor::getInstance($config->get('editor'));
 		
 		<?php endif; ?>
 	});
+</script>
+<?php else : ?>
+<script type="text/javascript">
+jQuery(document).bind('K2ExtraFieldsValidate', function(event, K2ExtraFields) {
+	
+	<?php if($field->get('editor')) : ?>
+
+	K2Editor.save('<?php echo $field->get('prefix'); ?>[value]');
+		
+	<?php endif; ?>
+});
 </script>
 <?php endif; ?>
