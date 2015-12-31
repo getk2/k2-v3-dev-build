@@ -21,6 +21,7 @@ class K2Editor extends JEditor
 {
 	private $js;
 	private $start;
+	private $editor;
 		
 	public static function getInstance($editor = 'none')
 	{
@@ -38,6 +39,7 @@ class K2Editor extends JEditor
 	{
 		parent::__construct($editor);
 		$this->init();
+		$this->editor = $editor;
 	}
 	
 	public function init() {
@@ -58,9 +60,30 @@ class K2Editor extends JEditor
 		}
 		return $this->js;
 	}
-
-	public function save($editor)
-	{
-		return parent::save($editor)." jQuery('#' + ".$editor.").val(K2Editor.getContent('".$editor."'));";
+	public function getContent($editor){
+		if($this->editor == 'tinymce'){
+			// override default method for Tiny MCE, as default getContent cannot handle more than one editor window.
+			$js = "tinyMCE.get('".$editor."').getContent();";
+			return $js;
+		}
+		return parent::getContent($editor);
+	}
+	
+	public function setContent($editor, $html){
+		if($this->editor == 'tinymce'){
+			// override default method for Tiny MCE, as default getContent cannot handle more than one editor window.
+			$js = "tinyMCE.get('".$editor."').setContent('".$html."');";
+			return $js;
+		}
+		return parent::getContent($editor, $html);
+	}
+	
+	public function save($editor){
+		if($this->editor == 'tinymce'){
+			// override default method for Tiny MCE, as default getContent cannot handle more than one editor window.
+			$js = "if (tinyMCE.get('".$editor."').isHidden()) {tinyMCE.get('".$editor."').show();};document.getElementById(".$editor.").value = tinyMCE.get('".$editor."').getContent();";
+			return $js;
+		}
+		return parent::save($editor);
 	}	
 }
