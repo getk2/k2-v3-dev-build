@@ -194,6 +194,11 @@ class K2HelperHTML
 		}
 		return JHtml::_('select.genericlist', $options, $name, $attributes, 'value', 'text', $value);
 	}
+	
+	public static function k2ExtraFieldsGroups($name = 'extra_fields_group', $field, $value = null, $none = false)
+	{
+		return '<div data-widget="'.$name.'" data-value="'.implode ('|',$value).'">'.K2HelperHTML::extraFieldsGroups($field, $value, $none, array('data-role' => 'extra-field-groups-selector'), 'item').'<div data-role="list"></div></div>';
+	}
 
 	public static function extraFieldsScopes($name = 'scope', $value = null, $attributes = '', $none = false)
 	{

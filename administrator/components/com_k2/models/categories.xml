@@ -56,7 +56,6 @@
 			</field>
 		</fieldset>
 		<fieldset name="categoryViewOptions" addfieldpath="/administrator/components/com_k2/fields">
-			<field name="catExtraFieldGroups" type="k2extrafieldgroups" label="K2_EXTRA_FIELD_GROUPS"/>
 			<field name="catTitle" type="radio" default="1" label="K2_TITLE" description="">
 				<option value="0">K2_HIDE</option>
 				<option value="1">K2_SHOW</option>
