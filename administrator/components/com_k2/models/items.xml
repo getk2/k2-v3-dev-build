@@ -56,6 +56,11 @@
 				<option value="0">K2_HIDE</option>
 				<option value="1">K2_SHOW</option>
 			</field>
+			<field name="catItemEmptyExtraFields" type="radio" default="" label="K2_EMPTY_EXTRA_FIELDS" description="">
+				<option value="">K2_INHERIT_FROM_CATEGORY</option>
+				<option value="0">K2_HIDE</option>
+				<option value="1">K2_SHOW</option>
+			</field>
 			<field name="catItemDateCreated" type="radio" default="" label="K2_ITEM_CREATED_DATE_AND_TIME" description="">
 				<option value="">K2_INHERIT_FROM_CATEGORY</option>
 				<option value="0">K2_HIDE</option>
@@ -187,6 +192,11 @@
 				<option value="1">K2_SHOW</option>
 			</field>
 			<field name="itemExtraFields" type="radio" default="" label="K2_EXTRA_FIELDS" description="">
+				<option value="">K2_INHERIT_FROM_CATEGORY</option>
+				<option value="0">K2_HIDE</option>
+				<option value="1">K2_SHOW</option>
+			</field>
+			<field name="itemEmptyExtraFields" type="radio" default="" label="K2_EMPTY_EXTRA_FIELDS" description="">
 				<option value="">K2_INHERIT_FROM_CATEGORY</option>
 				<option value="0">K2_HIDE</option>
 				<option value="1">K2_SHOW</option>

@@ -450,6 +450,9 @@ class PlgSystemK2 extends JPlugin
 				{
 					$view->item->extraFields = $view->item->getExtraFields();
 					$view->item->extra_fields = $view->item->getextra_fields();
+					if(!$view->item->params->get('itemEmptyExtraFields')){
+						$this->removeEmptyExtraFields($view->item);
+					}
 				}
 
 				if ($params->get('comments'))
@@ -533,6 +536,9 @@ class PlgSystemK2 extends JPlugin
 					{
 						$item->extraFields = $item->getExtraFields();
 						$item->extra_fields = $item->getextra_fields();
+						if(!$item->params->get('catItemEmptyExtraFields')){
+							$this->removeEmptyExtraFields($item);
+						}
 					}
 						
 					if (!$item->canEdit)
@@ -556,6 +562,14 @@ class PlgSystemK2 extends JPlugin
 				break;
 		}
 
+	}
+	
+	function removeEmptyExtraFields(&$item) {
+		foreach ($item->extra_fields as $key => $field){
+			if($field->value == '<div></div>'){
+				unset($item->extra_fields[$key]);
+			}
+		}
 	}
 
 }
