@@ -356,6 +356,14 @@ define(['underscore', 'backbone', 'marionette', 'dispatcher', 'session'], functi
 
 		// Close function. Checks in the row and redirects to list.
 		close : function() {
+			// HACK
+			// Trigger the onBeforeSave event if available. In essence, this is a NO-OP, as the form contents are not read afterwards.
+			// However, a side effect of the onBeforeSave methods is that it will trigger TinyMCE to unhide itself. This is needed for a 
+			// propoer unload in Firefox.
+			if ( typeof (this.view.onBeforeSave) === 'function') {
+				this.view.onBeforeSave();
+			}
+			
 			if (this.model.isNew() || !this.model.has('checked_out')) {
 				this.model.cleanUp(this.resource);
 				this.list();
