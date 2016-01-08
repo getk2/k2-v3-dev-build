@@ -16,6 +16,12 @@ defined('_JEXEC') or die ;
 
 class K2HelperUtilities
 {
+	const STATE_WORD = 1;
+	const STATE_SPACE = 2;
+	const STATE_TAGSTART = 3;
+	const STATE_TAG = 4;
+	const STATE_COMMENT = 5;
+
 	public static function writtenBy($gender)
 	{
 		if ($gender == 'm')
@@ -40,27 +46,81 @@ class K2HelperUtilities
 			return $string;
 		}
 
-		// Strip HTML tags
-		$string = strip_tags($string);
-
-		// Get words
-		$words = str_word_count($string, 1, '-,?,.');
-
-		// Truncate
-		if (count($words) > $length)
-		{
-			$words = array_slice($words, 0, $length);
-			$string = implode(' ', $words);
-
-			// Append end character
-			if ($endCharacter)
-			{
-				$string .= ' '.$endCharacter;
+		$buffer = new TextBuffer();
+		$buffer->setEndCharacter($endCharacter);
+		$state = STATE_WORD;
+		$wordCount = 0;
+		$p = 0;
+		$len = strlen($string);
+		
+		while ($p < $len) {
+			$c = $string[$p];
+			
+			switch ($state){
+				case STATE_WORD :
+					if ($c == '<'){
+						$state = STATE_TAGSTART;
+						break;
+					}
+					if (ctype_space($c)){
+						$state = STATE_SPACE;
+					}
+					// FALL THROUGH
+					$buffer->buffer($c);
+					$p++;
+					break;
+					
+				case STATE_SPACE :
+					if ($c == '<'){
+						$state = STATE_TAGSTART;
+						break;
+					}
+					if (!ctype_space($c)){
+						$state = STATE_WORD;
+						if($wordCount++ == $length){
+							$buffer->setBufferState(0);
+						}
+					}
+					// FALL THROUGH
+					$buffer->buffer($c);
+					$p++;
+					break;
+					
+				case STATE_TAGSTART :
+					if (substr($string, $p, 4) == '<!--'){
+						$stack[] = $state;
+						$state = STATE_COMMENT;
+					}else{
+						$state = STATE_TAG;
+						if($wordCount++ == $length){
+							$buffer->setBufferState(0);
+						}
+						$buffer->bufferAnyway($c);
+						$p++;
+					}
+					break;
+				case STATE_TAG :
+					if($c == '<'){
+						if (substr($string, $p, 4) == '<!--'){
+							$state = STATE_COMMENT;
+							break;
+						}
+					}elseif ($c == '>'){
+						$state = STATE_WORD;
+					}
+					// FALL THROUGH
+					$buffer->bufferAnyway($c);
+					$p++;
+					break;
+					
+				case STATE_COMMENT :
+					$p = strpos ($string, '-->', $p ) + 3;
+					$state = array_pop($stack);
+					break;
 			}
 		}
-
-		// Return
-		return $string;
+	
+		return $buffer->getBuffer();
 	}
 
 	public static function characterLimit($string, $length = 150, $endCharacter = '...')
@@ -116,5 +176,32 @@ class K2HelperUtilities
 	{
 		$user = K2Users::getInstance($id);
 		return $user->image->src;
+	}
+}
+
+class TextBuffer {
+	private $str = null;
+	private $state = 1;
+	private $endCharacter;
+	
+	public function buffer($c){
+		if($this->state){
+			$this->str .= $c;
+		}
+	}
+	public function bufferAnyway($c){
+		$this->str .= $c;
+	}
+	public function setEndCharacter($c){
+		$this->endCharacter = $c;
+	}
+	public function setBufferState($state){
+		if ($this->state != 0 && $state == 0){
+			$this->str .= ' '.$this->endCharacter;
+		}
+		$this->state = $state;
+	}
+	public function getBuffer() {
+		return $this->str;
 	}
 }
