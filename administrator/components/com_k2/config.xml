@@ -53,7 +53,7 @@
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
 		</field>
-		<field name="catItemIntroTextWordLimit" type="text" default="" size="4" label="K2_INTROTEXT_WORD_LIMIT" description="K2_IF_THIS_OPTION_IS_ENABLED_ALL_HTML_TAGS_IN_THE_INTROTEXT_WILL_BE_CLEANED_UP_TO_MAKE_SURE_THE_SITE_MARKUP_WILL_NOT_BREAK"/>
+		<field name="catItemIntroTextWordLimit" type="text" default="" size="4" label="K2_INTROTEXT_WORD_LIMIT" description=""/>
 		<field name="catItemExtraFields" type="radio" default="0" label="K2_EXTRA_FIELDS" description="">
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
@@ -188,6 +188,7 @@
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
 		</field>
+		<field name="userItemIntroTextWordLimit" type="text" default="" size="4" label="K2_INTROTEXT_WORD_LIMIT" description=""/>
 		<field name="userItemExtraFields" type="radio" default="0" label="K2_EXTRA_FIELDS" description="">
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
@@ -302,6 +303,7 @@
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
 		</field>
+		<field name="tagItemIntroTextWordLimit" type="text" default="" size="4" label="K2_INTROTEXT_WORD_LIMIT" description=""/>
 		<field name="tagItemExtraFields" type="radio" default="0" label="K2_EXTRA_FIELDS" description="">
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
@@ -416,6 +418,7 @@
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
 		</field>
+		<field name="dateItemIntroTextWordLimit" type="text" default="" size="4" label="K2_INTROTEXT_WORD_LIMIT" description=""/>
 		<field name="dateItemExtraFields" type="radio" default="0" label="K2_EXTRA_FIELDS" description="">
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
@@ -530,6 +533,7 @@
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>
 		</field>
+		<field name="searchItemIntroTextWordLimit" type="text" default="" size="4" label="K2_INTROTEXT_WORD_LIMIT" description=""/>
 		<field name="searchItemExtraFields" type="radio" default="0" label="K2_EXTRA_FIELDS" description="">
 			<option value="0">K2_HIDE</option>
 			<option value="1">K2_SHOW</option>

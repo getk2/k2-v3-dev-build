@@ -474,12 +474,22 @@ class PlgSystemK2 extends JPlugin
 				}
 				break;
 
+			case 'com_k2.itemlist.date' :
+			case 'com_k2.itemlist.search' :
+				$wordLimit = $view->params->get('listItemIntroTextWordLimit');
+				foreach ($view->items as &$item){
+					$item->introtext = K2HelperUtilities::wordLimit($item->introtext, $wordLimit);
+				}
+				break;
+				
 			// User view
 			case 'com_k2.itemlist.user' :
+				$wordLimit = $view->params->get('listItemIntroTextWordLimit');
 				$view->user = $view->author;
 				foreach ($view->items as &$item)
 				{
 					$item->params = $view->params;
+					$item->introtext = K2HelperUtilities::wordLimit($item->introtext, $wordLimit);
 					if (!$item->canEdit)
 					{
 						unset($item->editLink);
@@ -498,6 +508,10 @@ class PlgSystemK2 extends JPlugin
 
 			// Tag view
 			case 'com_k2.itemlist.tag' :
+				$wordLimit = $view->params->get('listItemIntroTextWordLimit');
+				foreach ($view->items as &$item){
+					$item->introtext = K2HelperUtilities::wordLimit($item->introtext, $wordLimit);
+				}
 				$view->feed = $view->tag->feedLink;
 				break;
 
@@ -516,6 +530,8 @@ class PlgSystemK2 extends JPlugin
 				{
 					$view->feed = JRoute::_('&format=feed&limitstart=');
 				}
+				
+				$wordLimit = $view->params->get('listItemIntroTextWordLimit');
 				foreach ($view->items as &$item)
 				{
 					if (isset($view->category))
@@ -545,7 +561,8 @@ class PlgSystemK2 extends JPlugin
 					{
 						unset($item->editLink);
 					}
-
+					
+					$item->introtext = K2HelperUtilities::wordLimit($item->introtext, $wordLimit);					
 				}
 				break;
 

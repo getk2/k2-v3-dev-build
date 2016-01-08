@@ -495,16 +495,6 @@ class K2View extends JViewLegacy
 		$model->setState('limitstart', $this->offset);
 		$this->items = $model->getRows();
 
-		// Word limit
-		if ($this->params->get('catItemIntroTextWordLimit'))
-		{
-			foreach ($this->items as $item)
-			{
-				$item->introtext = K2HelperUtilities::wordLimit($item->introtext, $this->params->get('catItemIntroTextWordLimit'));
-			}
-
-		}
-
 		// Count items
 		if ($count)
 		{
