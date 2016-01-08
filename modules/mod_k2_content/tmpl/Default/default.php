@@ -81,10 +81,8 @@ defined('_JEXEC') or die ; ?>
       <div class="moduleItemExtraFields">
 	      <b><?php echo JText::_('K2_ADDITIONAL_INFO'); ?></b>
 	      
-		  <?php foreach ($item->extraFieldsGroups as $extraFieldGroup): ?>
-		  <h4><?php echo $extraFieldGroup->name; ?></h4>
+		  <?php foreach ($item->extra_fields as $extraField): ?>
 		  <ul>
-			<?php foreach ($extraFieldGroup->fields as $key=>$extraField): ?>
 			<?php if($extraField->output): ?>
 			<li class="<?php echo ($key%2) ? "odd" : "even"; ?> type<?php echo ucfirst($extraField->type); ?> group<?php echo $extraField->group; ?>">
 				<span class="moduleItemExtraFieldsLabel"><?php echo $extraField->name; ?>:</span>
@@ -92,7 +90,6 @@ defined('_JEXEC') or die ; ?>
 				<div class="clr"></div>
 			</li>
 			<?php endif; ?>
-			<?php endforeach; ?>
 		</ul>
 		<?php endforeach; ?>
 		<div class="clr"></div>

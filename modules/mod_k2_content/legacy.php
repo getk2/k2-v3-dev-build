@@ -44,5 +44,11 @@ foreach ($items as $item)
 	{
 		$item->extraFields = $item->getExtraFields();
 		$item->extra_fields = $item->getextra_fields();
+		
+		foreach ($item->extra_fields as $key => $field){
+			if($field->value == '<div></div>' || empty($field->value)){
+				unset($item->extra_fields[$key]);
+			}
+		}
 	}
 }
