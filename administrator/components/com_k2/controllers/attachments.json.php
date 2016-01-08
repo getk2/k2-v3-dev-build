@@ -40,7 +40,7 @@ class K2ControllerAttachments extends K2Controller
 	public function upload()
 	{
 		// Check for token
-		JSession::checkToken() or K2Response::throwError(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or K2Response::throwError(JText::_('K2_INVALID_TOKEN_DURING_FILE_UPLOAD'));
 
 		// Get user
 		$user = JFactory::getUser();
