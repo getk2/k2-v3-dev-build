@@ -128,18 +128,6 @@ class K2Items extends K2Resource
 		// Hits
 		$this->hits = (int)$this->hits;
 
-		// Start and end dates
-		if ((int)$this->start_date > 0)
-		{
-			$this->startDate = JHtml::_('date', $this->start_date, 'Y-m-d');
-			$this->startTime = JHtml::_('date', $this->start_date, 'H:i');
-		}
-		if ((int)$this->end_date > 0)
-		{
-			$this->endDate = JHtml::_('date', $this->end_date, 'Y-m-d');
-			$this->endTime = JHtml::_('date', $this->end_date, 'H:i');
-		}
-
 		// Images
 		$this->images = $this->getImages();
 		$this->image = $this->getImage();
